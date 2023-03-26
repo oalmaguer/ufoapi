@@ -7,6 +7,7 @@ import pandas as pd
 
 app = Flask(__name__)
 
+@app.route('/', defaults={'path': ''})
 @app.route('/', methods=['GET'])
 def home():
     data_set = {'Page': 'Home', 'Message': 'Welcome to the UFO Sightings API', 'Timestamp': time.time()}
