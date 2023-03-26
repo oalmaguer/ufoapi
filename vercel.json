@@ -1,0 +1,17 @@
+{
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/ufo.py"
+    }
+  ],
+  "env": {
+    "PYTHONUNBUFFERED": "1",
+    "APP_MODULE": "ufo"
+  },
+  "build": {
+    "env": {
+      "PIPENV_IGNORE_VIRTUALENVS": "1"
+    }
+  }
+}
