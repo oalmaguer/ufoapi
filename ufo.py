@@ -2,6 +2,12 @@ from flask import *
 import json, time
 import csv
 import pandas as pd
+from google.cloud import storage
+import io
+
+# set up the Google Cloud Storage client
+storage_client = storage.Client.from_service_account_json('service-565520800581@gs-project-accounts.iam.gserviceaccount.com')
+bucket_name = 'oliver-74a48.appspot.com'
 
 
 
@@ -10,6 +16,7 @@ app = Flask(__name__)
 @app.route('/', defaults={'path': ''})
 @app.route('/', methods=['GET'])
 def home():
+    
     data_set = {'Page': 'Home', 'Message': 'Welcome to the UFO Sightings API', 'Timestamp': time.time()}
     json_dump = json.dumps(data_set)
 
@@ -18,6 +25,10 @@ def home():
 
 @app.route('/api/city/<string:city>', methods=['GET'])
 def request_city(city):
+    bucket = storage_client.get_bucket(bucket_name)
+    blob = bucket.blob('ufo.csv')
+    data = blob.download_as_string()
+    df = pd.read_csv(io.BytesIO(data), usecols=cols)
     page =  city.split("=")[1];
     city_formatted =  city.split("&")[0];
     print(city_formatted)
