@@ -6,7 +6,7 @@ from google.cloud import storage
 import io
 
 # set up the Google Cloud Storage client
-storage_client = storage.Client.from_service_account_json('service-565520800581@gs-project-accounts.iam.gserviceaccount.com')
+storage_client = storage.Client.from_service_account_json('./oliver.json')
 bucket_name = 'oliver-74a48.appspot.com'
 
 
@@ -28,14 +28,14 @@ def request_city(city):
     bucket = storage_client.get_bucket(bucket_name)
     blob = bucket.blob('ufo.csv')
     data = blob.download_as_string()
-    df = pd.read_csv(io.BytesIO(data), usecols=cols)
+    cols = ["state", "country", "shape", "city", "report_link", "text", "stats"]
     page =  city.split("=")[1];
     city_formatted =  city.split("&")[0];
     print(city_formatted)
-    cols = ["state", "country", "shape", "city", "report_link", "text", "stats"]
     print("hi2");
 
-    df = pd.read_csv("ufo.csv", usecols=cols)
+    df = pd.read_csv(io.BytesIO(data), usecols=cols)
+    # df = pd.read_csv("ufo.csv", usecols=cols)
     city =  city.lower().replace(' ', '')
 
     df['city'].str.lower()
@@ -65,12 +65,15 @@ def request_city(city):
 
 @app.route('/api/state/<string:state>', methods=['GET'])
 def request_state(state):
+    bucket = storage_client.get_bucket(bucket_name)
+    blob = bucket.blob('ufo.csv')
+    data = blob.download_as_string()
+    cols = ["state", "country", "shape", "city", "report_link", "text", "stats"]
     page =  state.split("=")[1];
     state_formatted =  state.split("&")[0];
     
-    cols = ["state", "country", "shape", "city", "report_link", "text", "stats"]
 
-    df = pd.read_csv("ufo.csv", usecols=cols)
+    df = pd.read_csv(io.BytesIO(data), usecols=cols)
     state =  state.lower().replace(' ', '')
 
     filtered_data = df[df['state'].str.lower() == state_formatted]
@@ -99,14 +102,17 @@ def request_state(state):
 
 @app.route('/api/country/<string:country>', methods=['GET'])
 def request_country(country):
+    bucket = storage_client.get_bucket(bucket_name)
+    blob = bucket.blob('ufo.csv')
+    data = blob.download_as_string()
+    cols = ["state", "country", "shape", "city", "report_link", "text", "stats"]
     page =  country.split("=")[1];
     country_formatted =  country.split("&")[0];
     print("Page: ", page);
     
     cols = ["state", "country", "shape", "city", "report_link", "text", "stats"]
 
-
-    df = pd.read_csv("ufo.csv", usecols=cols)
+    df = pd.read_csv(io.BytesIO(data), usecols=cols)
     print(df['country'].str.lower())
     country =  country.lower().replace(' ', '')
     print(country_formatted)
