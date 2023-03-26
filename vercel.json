@@ -1,0 +1,12 @@
+{
+    "build": {
+        "src": "./ufo.py",
+        "use": "@vercel/python"
+    },
+    "routes": [
+        {
+            "src": "/(.*)",
+            "dest": "./ufo.py"
+        }
+    ]
+}
