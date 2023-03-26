@@ -1,13 +1,13 @@
 {
     "builds": [
         {
-            "src": "api/ufo.py",
+            "src": "./ufo.py",
             "use": "@vercel/python"
         }
     ],
     "routes": [
         {
             "src": "/(.*)",
-            "dest": "api/ufo.py"
+            "dest": "/"
         }]
 }
