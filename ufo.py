@@ -20,7 +20,7 @@ def request_city(city):
     city_formatted =  city.split("&")[0];
     print(city_formatted)
     cols = ["state", "country", "shape", "city", "report_link", "text", "stats"]
-    print("hi");
+    print("hi2");
 
     df = pd.read_csv("ufo.csv", usecols=cols)
     city =  city.lower().replace(' ', '')
