@@ -1,13 +1,11 @@
 {
-    "version": 2,
-    "builds": [
-      {
-        "src": "/api/ufo.py",
-        "use": "@vercel/python"
-      }
-    ],
-    "routes": [
-      { "handle": "filesystem" },
-      { "src": "/api/(.*)", "dest": "/api/ufo.py" }
-    ]
+  "routes": [
+    { "src": "/api/(.*)", "dest": "/api/:1" },
+    { "src": "/(.*)", "dest": "/api/:1" }
+  ],
+  "build": {
+    "src": "api/",
+    "command": "python ufo.py",
+    "functions": { "api/**/*.py": true }
   }
+}
