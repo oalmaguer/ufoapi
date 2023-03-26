@@ -1,12 +1,26 @@
 {
-    "build": {
-        "src": "./ufo.py",
-        "use": "@vercel/python"
-    },
-    "routes": [
+    "version": 2,
+    "builds": [
         {
-            "src": "/(.*)",
-            "dest": "./ufo.py"
+            "src": "./ufo.py",
+            "use": "@vercel/python"
         }
+    ],
+    "rewrites": [
+        { "source": "/(.*)", "destination": "/" }
+    ],
+    "headers": [
+        {
+          "source": "/(.*)",
+          "headers": [
+            { "key": "Access-Control-Allow-Origin", "value": "*" }
+          ]
+        },
+        {
+          "source": "/(.*)",
+          "headers": [
+            { "key": "Access-Control-Allow-Origin", "value": "*" }
+          ]
+        }  
     ]
-}
+  }
