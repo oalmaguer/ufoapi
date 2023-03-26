@@ -15,12 +15,6 @@ def home():
 
     return json_dump
 
-@app.route('/test', methods=['GET'])
-def home():
-    data_set = {'Page': 'Home', 'Message': 'Welcome to the UFO Sightings API', 'Timestamp': time.time()}
-    json_dump = json.dumps(data_set)
-
-    return json_dump
 
 @app.route('/api/city/<string:city>', methods=['GET'])
 def request_city(city):
